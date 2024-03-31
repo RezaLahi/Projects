@@ -1,0 +1,7 @@
+housing= pd.read_csv("housing.csv")
+housing.head()
+housing.info()
+housing["ocean_proximity"].value_counts()
+housing.describe()
+#histogram based on matplot lib
+housing.hist(bins= 50, figsize=(20,15))
