@@ -1,7 +1,39 @@
-housing= pd.read_csv("housing.csv")
+import pandas as pd
+import os
+import tarfile
+import urllib.request
+
+#fetch data function
+def fetch_data(repo_url=GITHUB_REPO, file_path=FILE_PATH, file_name=FILE_NAME):
+    if not os.path.isdir(file_path):
+        os.makedirs(file_path)
+    file_url = repo_url + file_name
+    file_path = os.path.join(file_path, file_name)
+    urllib.request.urlretrieve(file_url, file_path)
+    print("Local file path:", os.path.abspath(FILE_PATH))
+    print("Current working directory:", os.getcwd())
+
+
+#fetching parameter
+GITHUB_REPO = "https://github.com/RezaLahi/Projects/raw/main/"
+PROJECT_NAME = "Housing"
+FILE_PATH = os.path.join("datasets", PROJECT_NAME)
+FILE_NAME = "housing.csv"
+
+
+#fetch data
+fetch_data()
+
+
+#load data
+housing = pd.read_csv(os.path.join(FILE_PATH, FILE_NAME))
+
+
+#data assessment
 housing.head()
 housing.info()
 housing["ocean_proximity"].value_counts()
 housing.describe()
 #histogram based on matplot lib
 housing.hist(bins= 50, figsize=(20,15))
+
